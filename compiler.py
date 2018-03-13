@@ -88,11 +88,11 @@ if __name__ == "__main__":
                 print '' 
 	        print '-----------------------------------------------------'
                 command("valgrind ./exe")
-        elif(strInContainer("--gdb",sys.arg)):
+        elif(strInContainer("--gdb",sys.argv)):
             if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
                 print 'launching gdb'
                 print '-----------------------------------------------------'
-                commnad("gdb exe")
+                command("gdb exe")
         else:
             if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
                 command("./exe")
