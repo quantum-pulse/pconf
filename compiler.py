@@ -40,7 +40,7 @@ def isExecutable(aFile):
 def command(aCommand):
     ret=os.system(aCommand)
     if(ret):
-	print("could not execute command %s"%(aCommand))
+        print("could not execute command %s"%(aCommand))
         sys.exit()
 
 def checkCommandLineArgs(aCmdline):
@@ -150,62 +150,62 @@ def setTasks():
 
 if __name__ == "__main__":
 
-	os.system('clear')
-        print(sys.argv)
+    os.system('clear')
+    print(sys.argv)
 
-        filetype = None
-        ret = False
+    filetype = None
+    ret = False
 
-        if(mktCompiling()):
-            filetype,ret = compileMktSoft()
-        else:
-            #quick patch todo improve
-
-            if( len(sys.argv) > 2 ):
-                if( ".qml" in sys.argv[2] and len(sys.argv) == 3):
+    if(mktCompiling()):
+        filetype,ret = compileMktSoft()
+    else:
+        #quick patch todo improve
+        if( len(sys.argv) > 2 ):
+            if( ".qml" in sys.argv[2] and len(sys.argv) == 3):
                     command("qmlscene %s"%(sys.argv[2]))
-                else:
-                    filetype,ret,element = loadPlugins()
             else:
                 filetype,ret,element = loadPlugins()
-
-        if(strInContainer("--compile",sys.argv)):
-            sys.exit()
-
-        if(strInContainer("--val",sys.argv)):
-            if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
-                command("./exe")
-                print ('')
-	        print ('-----------------------------------------------------')
-                command("valgrind ./exe")
-        elif(strInContainer("--debug",sys.argv)):
-            if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
-                print ('launching debugger')
-                print ('-----------------------------------------------------')
-                if(filetype != None):
-                    if(filetype == "c" or filetype == "cxx"):
-                        command("gdb exe")
-                    if(filetype == "rs"):
-                        command("rust-gdb exe")
-
-            if(ret and filetype=="py"):
-                print('launching py debugger')
-                print('-----------------------------------------------------')
-                command("python -m pdb %s"%(sys.argv[2]))
-
-        elif(strInContainer("--args",sys.argv)):
-            #should be able to pass multiple args ex: exe arg1 arg2 arg3 ... argn
-            print('launching with args')
-            print('-----------------------------------------------------')
-            cli_args=raw_input("args ?\n")
-            lCommand = prepareCommandArgs( cli_args , filetype )
-
-            if(ret and filetype=="py"):
-                command( lCommand%( element ) )
-
-            if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
-                command( lCommand )
-
         else:
-            if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
-                command("./exe")
+            filetype,ret,element = loadPlugins()
+
+    if(strInContainer("--compile",sys.argv)):
+        sys.exit()
+
+    if(strInContainer("--val",sys.argv)):
+        if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
+            command("./exe")
+            print ('')
+            print ('-----------------------------------------------------')
+            command("valgrind ./exe")
+
+    elif(strInContainer("--debug",sys.argv)):
+        if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
+            print ('launching debugger')
+            print ('-----------------------------------------------------')
+        if(filetype != None):
+            if(filetype == "c" or filetype == "cxx"):
+                command("gdb exe")
+            if(filetype == "rs"):
+                command("rust-gdb exe")
+
+        if(ret and filetype=="py"):
+            print('launching py debugger')
+            print('-----------------------------------------------------')
+            command("python -m pdb %s"%(sys.argv[2]))
+
+    elif(strInContainer("--args",sys.argv)):
+        #should be able to pass multiple args ex: exe arg1 arg2 arg3 ... argn
+        print('launching with args')
+        print('-----------------------------------------------------')
+        cli_args=raw_input("args ?\n")
+        lCommand = prepareCommandArgs( cli_args , filetype )
+
+        if(ret and filetype=="py"):
+            command( lCommand%( element ) )
+
+        if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
+            command( lCommand )
+
+    else:
+        if(ret and strInContainer("exe",os.listdir(os.getcwd()))):
+            command("./exe")
