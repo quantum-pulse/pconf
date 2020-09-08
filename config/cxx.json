@@ -1,0 +1,9 @@
+{
+ "lang":"c++",
+ "source_file":["cxx,cpp,cc"],
+ "meta_file":["txx"],
+ "compiler":"clang++-10",
+ "standard":"c++20",
+ "flags":["g3","rdynamic","-stdlib=libstdc++"],
+ "sharedlib":["pthread","sqlite3","stdc++fs","webrequest","systools","requestparser","tools","pugixml","uuid"]
+}

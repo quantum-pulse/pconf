@@ -3,7 +3,7 @@
 import os
 import sys
 
-COMPILECMDCXX="clang++-10 -g3 -rdynamic -std=c++2a -stdlib=libstdc++ %s -o exe -lpthread -lsqlite3 -lstdc++fs -lwebrequest -lsystools -lrequestparser -ltools -lpugixml"# -luuid "
+COMPILECMDCXX="clang++-10 -g3 -rdynamic -std=c++20 -stdlib=libstdc++ %s -o exe -lpthread -lsqlite3 -lstdc++fs -lwebrequest -lsystools -lrequestparser -ltools -lpugixml"# -luuid "
 
 COMPILECMDC="gcc-7 -g3 %s -o exe -lpthread -lm"
 COMPILECMDRUST="rustc -g %s -o exe"

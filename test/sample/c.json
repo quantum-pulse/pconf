@@ -1,0 +1,8 @@
+{
+ "lang":"c",
+ "source_file":["c"],
+ "compiler":"gcc-8",
+ "standard":"c1x",
+ "flags":["g3","rdynamic"],
+ "sharedlib":["pthread","m"]
+}
